@@ -268,8 +268,8 @@ export const ChatTutor: React.FC<ChatTutorProps> = ({
           {/* Flashcards Generator Button */}
           <button
             onClick={handleGenerateFlashcards}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold shadow-sm transition-colors"
-            title="Generar 5 Flashcards de repaso a partir del chat actual"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold shadow-sm transition-all hover:scale-105"
+            title="Analizar conversación y generar 5 tarjetas de memoria (Flashcards)"
           >
             <Layers className="w-3.5 h-3.5 text-blue-100" />
             <span className="hidden sm:inline">5 Flashcards</span>
@@ -501,6 +501,36 @@ export const ChatTutor: React.FC<ChatTutorProps> = ({
               </div>
             );
           })
+        )}
+
+        {/* In-Chat Flashcards Suggestion Callout Banner */}
+        {messages.some((m) => m.role === 'assistant') && !isLoading && (
+          <div className="my-2 p-3.5 rounded-2xl bg-gradient-to-r from-blue-50/80 via-slate-50 to-indigo-50/60 dark:from-slate-850 dark:via-slate-800 dark:to-blue-950/40 border border-blue-200/70 dark:border-blue-900/60 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-2xs animate-in fade-in duration-300">
+            <div className="flex items-center gap-2.5">
+              <div className="p-2 rounded-xl bg-blue-600 text-white shadow-xs shrink-0">
+                <Layers className="w-4 h-4" />
+              </div>
+              <div>
+                <div className="text-xs font-bold text-slate-800 dark:text-slate-100 flex items-center gap-1.5">
+                  <span>¿Listo para consolidar lo aprendido?</span>
+                  <span className="text-[10px] px-2 py-0.2 rounded-full bg-blue-100 dark:bg-blue-900/80 text-blue-800 dark:text-blue-300 font-extrabold">
+                    5 Flashcards
+                  </span>
+                </div>
+                <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
+                  Genera 5 tarjetas de memoria basadas en las ecuaciones y conceptos analizados en este chat.
+                </p>
+              </div>
+            </div>
+
+            <button
+              onClick={handleGenerateFlashcards}
+              className="self-end sm:self-center px-3.5 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold shadow-xs flex items-center gap-1.5 transition-all hover:scale-105 shrink-0"
+            >
+              <Sparkles className="w-3.5 h-3.5 text-blue-200" />
+              <span>Generar Flashcards</span>
+            </button>
+          </div>
         )}
 
         {/* Loading Indicator */}

@@ -228,7 +228,7 @@ Debes responder ÚNICAMENTE con un objeto JSON válido (sin formato markdown alr
     });
 
     const responseText = response.text || '{}';
-    let parsedData;
+    let parsedData: any;
     try {
       parsedData = JSON.parse(responseText);
     } catch (parseErr) {
@@ -239,6 +239,14 @@ Debes responder ÚNICAMENTE con un objeto JSON válido (sin formato markdown alr
       } else {
         throw new Error('No se pudo parsear el JSON de flashcards.');
       }
+    }
+
+    if (parsedData && Array.isArray(parsedData.flashcards)) {
+      // Ensure each card has a distinct and reliable id
+      parsedData.flashcards = parsedData.flashcards.map((fc: any, index: number) => ({
+        ...fc,
+        id: fc.id || `card-${Date.now()}-${index + 1}`,
+      }));
     }
 
     return res.json(parsedData);

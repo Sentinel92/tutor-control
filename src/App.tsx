@@ -6,6 +6,7 @@ import { ThemeProvider, useTheme } from './context/ThemeContext';
 import { ChatTutor } from './components/ChatTutor';
 import { TopicsExplorer } from './components/TopicsExplorer';
 import { SimulationLab } from './components/SimulationLab';
+import { PoleZeroAnalyzer } from './components/PoleZeroAnalyzer';
 import { StateSpaceCalc } from './components/StateSpaceCalc';
 import { QuizTrainer } from './components/QuizTrainer';
 import { CheatSheet } from './components/CheatSheet';
@@ -15,6 +16,7 @@ import {
   Bot,
   BookOpen,
   Sliders,
+  Activity,
   Grid,
   Trophy,
   Bookmark,
@@ -27,7 +29,7 @@ import {
   Moon,
 } from 'lucide-react';
 
-type TabId = 'chat' | 'topics' | 'simulation' | 'statespace' | 'quiz' | 'cheatsheet' | 'plan';
+type TabId = 'chat' | 'topics' | 'simulation' | 'polezero' | 'statespace' | 'quiz' | 'cheatsheet' | 'plan';
 
 function MainAppContent() {
   const { theme, toggleTheme } = useTheme();
@@ -187,6 +189,18 @@ function MainAppContent() {
             </button>
 
             <button
+              onClick={() => setActiveTab('polezero')}
+              className={`flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors ${
+                activeTab === 'polezero'
+                  ? 'bg-blue-600 text-white shadow-sm'
+                  : 'text-slate-300 hover:text-white hover:bg-slate-800'
+              }`}
+            >
+              <Activity className="w-3.5 h-3.5" />
+              <span>Polos y Ceros</span>
+            </button>
+
+            <button
               onClick={() => setActiveTab('statespace')}
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors ${
                 activeTab === 'statespace'
@@ -287,6 +301,7 @@ function MainAppContent() {
             { id: 'chat', label: 'Tutor', icon: Bot },
             { id: 'topics', label: 'Módulos', icon: BookOpen },
             { id: 'simulation', label: 'Simulador', icon: Sliders },
+            { id: 'polezero', label: 'Polos/Ceros', icon: Activity },
             { id: 'statespace', label: 'Matrices', icon: Grid },
             { id: 'quiz', label: 'Desafíos', icon: Trophy },
             { id: 'cheatsheet', label: 'Formulario', icon: Bookmark },
@@ -355,6 +370,12 @@ function MainAppContent() {
         {activeTab === 'simulation' && (
           <SimulationLab
             onAskControlBot={(p) => handleAskControlBotFromOtherTab(p, 'Simulación Dinámica')}
+          />
+        )}
+
+        {activeTab === 'polezero' && (
+          <PoleZeroAnalyzer
+            onAskControlBot={(p, title) => handleAskControlBotFromOtherTab(p, title || 'Análisis de Polos y Ceros')}
           />
         )}
 
