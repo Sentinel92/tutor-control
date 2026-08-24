@@ -1,0 +1,41 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "Progreso del estudiante, fecha de examen y apuntes guardados",
+      "type": "object",
+      "properties": {
+        "examDate": {
+          "type": "string",
+          "description": "Fecha del próximo examen del usuario en formato YYYY-MM-DD"
+        },
+        "examTopic": {
+          "type": "string",
+          "description": "Nombre o materia del examen"
+        },
+        "completedTopicIds": {
+          "type": "array",
+          "description": "IDs de los temas teóricos completados y dominados"
+        },
+        "solvedChallengeIds": {
+          "type": "array",
+          "description": "IDs de los desafíos del Quiz completados correctamente"
+        },
+        "notebookNotes": {
+          "type": "string",
+          "description": "Contenido en Markdown y LaTeX del bloc de notas persistente"
+        },
+        "lastUpdated": {
+          "type": "string",
+          "description": "Timestamp ISO de la última sincronización"
+        }
+      }
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "Documento de progreso privado del estudiante"
+    }
+  }
+}

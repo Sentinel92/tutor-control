@@ -1,0 +1,6 @@
+{
+  "name": "ControlBot: Tutor de Modelamiento y Control Automático",
+  "description": "Tutor universitario experto en modelamiento de sistemas dinámicos, Laplace, circuitos RLC, sistemas mecánicos, espacio de estados, MATLAB y Simulink.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
